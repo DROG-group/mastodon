@@ -60,7 +60,7 @@ unless Rails.env.development?
     p.frame_src       :self, :https
     p.child_src       :self, :blob, assets_host
     p.worker_src      :self, :blob, assets_host
-    p.connect_src     :self, :blob, :data, Rails.configuration.x.streaming_api_base_url, *data_hosts, "https://api.tactcheck.com", , 'https://api.xn--sft219bi3tzwd.com'  
+    p.connect_src     :self, :blob, :data, Rails.configuration.x.streaming_api_base_url, *data_hosts, "https://api.tactcheck.com", 'https://api.xn--sft219bi3tzwd.com'  
     p.manifest_src    :self, assets_host
 
     if sso_host.present?
