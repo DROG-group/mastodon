@@ -416,8 +416,9 @@ widgetRouter = (status, link) => {
   _updateStatusLinks () {
     const node = this.contentsNode;
     const { tagLinks, rewriteMentions } = this.props;
-    const targetHref = "https://api.tactcheck.com/widgets";  
-
+    const primaryDomain = window.location.hostname.split('.').slice(-2).join('.');
+    const targetHref = `https://api.${primaryDomain}/widgets`;
+    
     if (!node) {
       return;
     }
