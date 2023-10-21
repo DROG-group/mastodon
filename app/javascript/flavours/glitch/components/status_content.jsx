@@ -186,16 +186,15 @@ class StatusContent extends PureComponent {
     const controls = document.createElement('div');
     controls.className = 'carousel-controls';
     
-    const prevButton = document.createElement('button');
+const prevButton = document.createElement('button');
+    prevButton.innerHTML = '<<';
     const nextButton = document.createElement('button');
+    nextButton.innerHTML = '>>';
     const selectButton = document.createElement('button');
-    const buttons = [prevButton, nextButton, selectButton];
-    const buttonLabels = ['<<', '>>', 'Select this option'];
-    
-    for (let i = 0; i < buttons.length; i++) {
-      buttons[i].innerHTML = buttonLabels[i];
-      buttons[i].style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
-    }
+    selectButton.innerHTML = 'Select this option';
+    selectButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
+    nextButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
+    prevButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
 
     let currentSvgIndex = 0;
   
@@ -263,10 +262,7 @@ class StatusContent extends PureComponent {
       dropdown.className += ' mention hashtag status-link';
 
       // Add inline styles to center the dropdown
-      dropdown.style.margin = '0 auto';
-      dropdown.style.display = 'block';
-
-      dropdown.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
+        dropdown.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
 
       // Add command (disabled state)
       const defOption = document.createElement('option');
@@ -340,8 +336,7 @@ class StatusContent extends PureComponent {
       button.style = "background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
       button.innerHTML = buttonLabel;  // Set button text
       button.className = 'api-button custom-button';  // Added 'custom-button' class
-      buttonContainer.className += ' mention hashtag status-link';
-
+  
       // Add inline styles to center and space buttons
       buttonContainer.style.display = 'flex';
       buttonContainer.style.justifyContent = 'center';
