@@ -195,6 +195,9 @@ const prevButton = document.createElement('button');
     selectButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
     nextButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
     prevButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
+    nextButton.className = 'api-button';
+    selectButton.className = 'api-button';
+    prevButton.className = 'api-button';
 
     let currentSvgIndex = 0;
   
