@@ -237,6 +237,7 @@ class StatusContent extends PureComponent {
     controls.style.display = 'flex';
     controls.style.justifyContent = 'space-between'; // This will make them justified
     controls.style.width = '100%';
+    controls.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
     controls.style.marginTop = '10px';  // Add some space between the SVG and the buttons
     
   
