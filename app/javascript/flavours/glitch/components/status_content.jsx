@@ -187,12 +187,16 @@ class StatusContent extends PureComponent {
     controls.className = 'carousel-controls';
     
     const prevButton = document.createElement('button');
-    prevButton.innerHTML = '<<';
     const nextButton = document.createElement('button');
-    nextButton.innerHTML = '>>';
     const selectButton = document.createElement('button');
-    selectButton.innerHTML = 'Select this option';
-  
+    const buttons = [prevButton, nextButton, selectButton];
+    const buttonLabels = ['<<', '>>', 'Select this option'];
+    
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].innerHTML = buttonLabels[i];
+      buttons[i].style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
+    }
+
     let currentSvgIndex = 0;
   
     prevButton.onclick = () => {
@@ -237,7 +241,6 @@ class StatusContent extends PureComponent {
     controls.style.display = 'flex';
     controls.style.justifyContent = 'space-between'; // This will make them justified
     controls.style.width = '100%';
-    controls.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
     controls.style.marginTop = '10px';  // Add some space between the SVG and the buttons
     
   
