@@ -262,7 +262,7 @@ class StatusContent extends PureComponent {
       dropdown.style.margin = '0 auto';
       dropdown.style.display = 'block';
 
-      dropdown.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 16px; font-size: 16px; border: none; cursor: pointer;";
+      dropdown.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
 
       // Add command (disabled state)
       const defOption = document.createElement('option');
@@ -333,7 +333,7 @@ class StatusContent extends PureComponent {
   
     buttonLabels.forEach((buttonLabel) => {
       const button = document.createElement('button');
-      button.style = "background-color: #3498DB; color: white; padding: 16px; font-size: 16px; border: none; cursor: pointer;";
+      button.style = "background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
       button.innerHTML = buttonLabel;  // Set button text
       button.className = 'api-button custom-button';  // Added 'custom-button' class
       buttonContainer.className += ' mention hashtag status-link';
