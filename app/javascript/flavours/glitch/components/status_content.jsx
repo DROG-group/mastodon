@@ -187,11 +187,11 @@ class StatusContent extends PureComponent {
     controls.className = 'carousel-controls';
     
 const prevButton = document.createElement('button');
-    prevButton.innerHTML = '<<';
+    prevButton.innerHTML = '👈';
     const nextButton = document.createElement('button');
-    nextButton.innerHTML = '>>';
+    nextButton.innerHTML = '👉';
     const selectButton = document.createElement('button');
-    selectButton.innerHTML = 'Select this option';
+    selectButton.innerHTML = '👍';
     selectButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
     nextButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
     prevButton.style = "margin: 0 auto; display: block; background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
@@ -269,7 +269,7 @@ const prevButton = document.createElement('button');
 
       // Add command (disabled state)
       const defOption = document.createElement('option');
-      defOption.text = "-- Select your answer --";
+      defOption.text = "🔽";
       defOption.value = "";
       defOption.disabled = true;
       defOption.selected = true;
