@@ -202,17 +202,15 @@ const prevButton = document.createElement('button');
     let currentSvgIndex = 0;
   
     prevButton.onclick = () => {
-      if (currentSvgIndex > 0) {
-        currentSvgIndex--;
-        initialSvg.data = svgLinks[currentSvgIndex];
-      }
+      if (currentSvgIndex > 0) currentSvgIndex--;
+      else currentSvgIndex = svgLinks.length - 2
+      initialSvg.data = svgLinks[currentSvgIndex];
     };
-  
+    
     nextButton.onclick = () => {
-      if (currentSvgIndex < svgLinks.length - 1) {
-        currentSvgIndex++;
-        initialSvg.data = svgLinks[currentSvgIndex];
-      }
+      if (currentSvgIndex < svgLinks.length - 2) currentSvgIndex++;
+      else currentSvgIndex = 0
+      initialSvg.data = svgLinks[currentSvgIndex];
     };
   
     selectButton.onclick = () => {
@@ -276,10 +274,12 @@ const prevButton = document.createElement('button');
       dropdown.add(defOption);
     
       dropdownOptions.forEach((optionLabel) => {
-        const option = document.createElement('option');
-        option.value = optionLabel;
-        option.text = optionLabel;
-        dropdown.add(option);
+        if (optionLabel !== "") {
+          const option = document.createElement('option');
+          option.value = optionLabel;
+          option.text = optionLabel;
+          dropdown.add(option);
+        }
       });
     
       dropdown.onchange = (event) => {
@@ -329,48 +329,50 @@ const prevButton = document.createElement('button');
   // Widget createApiButtons
    createApiButtons = (link, buttons, fundamentals) => {
     const { statusId, accountId } = fundamentals;
-    const buttonLabels = buttons.split('|');  // Split the buttons string into an array based on the pipe delimiter
+     const buttonLabels = buttons.split('|');  // Split the buttons string into an array based on the pipe delimiter
   
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'api-button-container custom-button-container'; // Added 'custom-button-container' class
   
-    buttonLabels.forEach((buttonLabel) => {
-      const button = document.createElement('button');
-      button.style = "background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
-      button.innerHTML = buttonLabel;  // Set button text
-      button.className = 'api-button custom-button';  // Added 'custom-button' class
-  
-      // Add inline styles to center and space buttons
-      buttonContainer.style.display = 'flex';
-      buttonContainer.style.justifyContent = 'center';
-      buttonContainer.style.gap = '10px';
-  
-      button.onclick = () => {
-       // Get the original URL
-      const originalUrl = new URL(link.getAttribute('href'));
+     buttonLabels.forEach((buttonLabel) => {
+       if (buttonLabel != "") {
+          const button = document.createElement('button');
+          button.style = "background-color: #3498DB; color: white; padding: 4px; font-size: 12px; border: none; cursor: pointer;";
+          button.innerHTML = buttonLabel;  // Set button text
+          button.className = 'api-button custom-button';  // Added 'custom-button' class
+      
+          // Add inline styles to center and space buttons
+          buttonContainer.style.display = 'flex';
+          buttonContainer.style.justifyContent = 'center';
+          buttonContainer.style.gap = '10px';
+      
+          button.onclick = () => {
+            // Get the original URL
+            const originalUrl = new URL(link.getAttribute('href'));
 
-      // Extract the widgetId
-      const widgetId = originalUrl.searchParams.get('id');
+            // Extract the widgetId
+            const widgetId = originalUrl.searchParams.get('id');
 
-      // Construct a clean URL, removing query strings
-      const cleanUrl = `${originalUrl.protocol}//${originalUrl.hostname}${originalUrl.pathname}`;
+            // Construct a clean URL, removing query strings
+            const cleanUrl = `${originalUrl.protocol}//${originalUrl.hostname}${originalUrl.pathname}`;
 
-      // Append new parameters along with the widgetId
-      const apiUrl = `${cleanUrl}?id=${widgetId}&buttonClicked=${buttonLabel}&statusId=${statusId}&accountId=${accountId}`;
-      console.log("Sending GET request to: ", apiUrl);
+            // Append new parameters along with the widgetId
+            const apiUrl = `${cleanUrl}?id=${widgetId}&buttonClicked=${buttonLabel}&statusId=${statusId}&accountId=${accountId}`;
+            console.log("Sending GET request to: ", apiUrl);
 
-        // Send GET request to API
-        fetch(apiUrl)
-          .then(response => response.json())
-          .then(data => {
-            // Handle API response data here
-          })
-          .catch(error => {
-            console.error("Error sending API request:", error);
-          });
-      };
-  
-      buttonContainer.appendChild(button);
+            // Send GET request to API
+            fetch(apiUrl)
+              .then(response => response.json())
+              .then(data => {
+                // Handle API response data here
+              })
+              .catch(error => {
+                console.error("Error sending API request:", error);
+              });
+          };
+      
+          buttonContainer.appendChild(button);
+     }
     });
   
     // Replace the original link with the button container
