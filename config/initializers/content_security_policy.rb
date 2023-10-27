@@ -56,11 +56,11 @@ unless Rails.env.development?
     p.font_src        :self, assets_host
     p.img_src         :self, :data, :blob, *data_hosts, 'https://tactcheck.com/', 'https://mastodon.xn--sft219bi3tzwd.com' 
     p.style_src       :self, assets_host
-    p.media_src       :self, :data, *data_hosts, 'https://tactcheck.com/', 'https://api.tactcheck.com/', 'https://mastodon.xn--sft219bi3tzwd.com', 'https://api.xn--sft219bi3tzwd.com'  
+    p.media_src       :self, :data, *data_hosts, 'https://tactcheck.com/', 'https://api.tactcheck.com/', 'https://dev.api.tactcheck.coom', 'https://mastodon.xn--sft219bi3tzwd.com', 'https://api.xn--sft219bi3tzwd.com'  
     p.frame_src       :self, :https
     p.child_src       :self, :blob, assets_host
     p.worker_src      :self, :blob, assets_host
-    p.connect_src     :self, :blob, :data, Rails.configuration.x.streaming_api_base_url, *data_hosts, "https://api.tactcheck.com", 'https://api.xn--sft219bi3tzwd.com'  
+    p.connect_src     :self, :blob, :data, Rails.configuration.x.streaming_api_base_url, *data_hosts, "https://dev.api.tactcheck.com", "https://api.tactcheck.com", 'https://api.xn--sft219bi3tzwd.com'  
     p.manifest_src    :self, assets_host
 
     if sso_host.present?

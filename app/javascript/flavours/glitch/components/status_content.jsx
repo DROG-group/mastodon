@@ -421,7 +421,7 @@ widgetRouter = (status, link) => {
     const node = this.contentsNode;
     const { tagLinks, rewriteMentions } = this.props;
     const primaryDomain = window.location.hostname.split('.').slice(-2).join('.');
-    const targetHref = `https://api.${primaryDomain}/widgets`;
+    const targetHref = `api.${primaryDomain}/widgets`;
     
     if (!node) {
       return;
