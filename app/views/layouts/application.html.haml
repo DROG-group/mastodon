@@ -44,6 +44,19 @@
     = render partial: 'layouts/theme', object: @theme
 
     = stylesheet_link_tag custom_css_path, skip_pipeline: true, host: root_url, media: 'all'
+  
+    %script{:type => "text/javascript"}
+      :plain
+          var _paq = window._paq = window._paq || [];
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="https://matomo.tactcheck.com/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
 
   %body{ class: body_classes }
     = content_for?(:content) ? yield(:content) : yield
@@ -51,3 +64,4 @@
     .logo-resources{ 'tabindex' => '-1', 'inert' => true, 'aria-hidden' => true }
       = render_symbol :icon
       = render_symbol :wordmark
+
