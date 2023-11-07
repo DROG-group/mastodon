@@ -347,6 +347,10 @@ const prevButton = document.createElement('button');
           buttonContainer.style.gap = '10px';
       
           button.onclick = () => {
+
+            // Change the background
+            button.style.backgroundColor = "#FFC300";
+
             // Get the original URL
             const originalUrl = new URL(link.getAttribute('href'));
 
