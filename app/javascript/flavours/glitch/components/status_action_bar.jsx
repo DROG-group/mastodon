@@ -331,12 +331,25 @@ class StatusActionBar extends ImmutablePureComponent {
         </div>
 
         <div className='status__action-bar-spacer' />
-          <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'>
-            {new Date(status.get('created_at')).getFullYear() + 7}-{new Date(status.get('created_at')).toLocaleString('en-US', { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).substring(5)}
-            {status.get('edited_at') && (
-              <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/\d{4}/, new Date(status.get('edited_at')).getFullYear() + 7) })}> *</abbr>
-            )}
-          </a>
+         <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'>
+          {
+            status.get('displayed_at') ? 
+            // If displayed_at is available, format and display it
+            new Date(status.get('displayed_at')).toLocaleString('en-US', {
+              year: 'numeric', 
+              month: 'short', 
+              day: '2-digit', 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              hour12: false
+            }) :
+            // Otherwise, format the created_at date and add 7 years
+            `${new Date(status.get('created_at')).getFullYear() + 7}-${new Date(status.get('created_at')).toLocaleString('en-US', { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).substring(5)}`
+          }
+          {status.get('edited_at') && (
+            <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/\d{4}/, new Date(status.get('edited_at')).getFullYear() + 7) })}> *</abbr>
+          )}
+        </a>
         </div>
     );
   }
