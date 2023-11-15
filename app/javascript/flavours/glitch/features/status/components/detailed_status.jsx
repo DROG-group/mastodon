@@ -332,12 +332,17 @@ class DetailedStatus extends ImmutablePureComponent {
             disabled
           />
 
-        <div className='detailed-status__meta'>
-              <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
-                {new Date(status.get('created_at')).getFullYear() + 7}-{new Date(status.get('created_at')).toLocaleString('en-US', { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false })}
-              </a>
-              {edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
-            </div>
+          <div className='detailed-status__meta'>
+            <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
+              {status.get('displayed_at') ? 
+                new Date(status.get('displayed_at')).toLocaleString('en-US', {
+                  year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', our12: false
+                }) :
+                `${new Date(status.get('created_at')).getFullYear() + 7}-${(new Date(status.get('created_at')).getMonth() + 1).toString().padStart(2, '0')}-${new Date(status.get('created_at')).getDate().toString().padStart(2, '0')}`
+              }
+            </a>
+            {edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
+          </div>
         </div>
       </div>
     );
