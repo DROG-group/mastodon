@@ -36,6 +36,12 @@ GIT
       nokogiri (~> 1.5)
       omniauth (>= 1.2, < 3)
 
+PATH
+  remote: gamepatch
+  specs:
+    gamepatch (0.1.0)
+      rails (>= 7.0.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -831,6 +837,7 @@ DEPENDENCIES
   fog-core (<= 2.4.0)
   fog-openstack (~> 0.3)
   fuubar (~> 2.5)
+  gamepatch!
   haml-rails (~> 2.0)
   haml_lint
   hcaptcha (~> 7.1)

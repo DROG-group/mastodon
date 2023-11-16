@@ -3,6 +3,8 @@
 source 'https://rubygems.org'
 ruby '>= 3.0.0'
 
+gem 'gamepatch', path: 'gamepatch'
+
 gem 'puma', '~> 6.3'
 gem 'rails', '~> 7.0'
 gem 'sprockets', '~> 3.7.2'

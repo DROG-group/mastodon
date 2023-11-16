@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 
+  mount Gamepatch::Engine, at: '/gamepatch'
+
   get 'health', to: 'health#show'
 
   authenticate :user, lambda { |u| u.role&.can?(:view_devops) } do
