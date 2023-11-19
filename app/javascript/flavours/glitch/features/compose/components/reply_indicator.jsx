@@ -1,4 +1,3 @@
-//  Package imports.
 import PropTypes from 'prop-types';
 
 import { defineMessages, injectIntl } from 'react-intl';
@@ -6,18 +5,13 @@ import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-//  Components.
 import AttachmentList from 'flavours/glitch/components/attachment_list';
 import { IconButton } from 'flavours/glitch/components/icon_button';
 import AccountContainer from 'flavours/glitch/containers/account_container';
-//  Messages.
-const messages = defineMessages({
-  cancel: {
-    defaultMessage: 'Cancel',
-    id: 'reply_indicator.cancel',
-  },
-});
 
+const messages = defineMessages({
+  cancel: { id: 'reply_indicator.cancel', defaultMessage: 'Cancel' },
+});
 
 class ReplyIndicator extends ImmutablePureComponent {
 
@@ -34,7 +28,6 @@ class ReplyIndicator extends ImmutablePureComponent {
     }
   };
 
-  //  Rendering.
   render () {
     const { status, intl } = this.props;
 
@@ -46,7 +39,6 @@ class ReplyIndicator extends ImmutablePureComponent {
     const content     = status.get('content');
     const attachments = status.get('media_attachments');
 
-    //  The result.
     return (
       <article className='reply-indicator'>
         <header className='reply-indicator__header'>
