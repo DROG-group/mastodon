@@ -333,26 +333,9 @@ class DetailedStatus extends ImmutablePureComponent {
           />
 
           <div className='detailed-status__meta'>
-            <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'>
-            {
-              status.get('displayed_at') ? 
-              // If displayed_at is available, format and display it
-              new Date(status.get('displayed_at')).toLocaleString('en-US', {
-                year: 'numeric', 
-                month: 'short', 
-                day: '2-digit', 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                hour12: false
-              }) :
-              // Otherwise, format the created_at date and add 7 years
-              `${new Date(status.get('created_at')).getFullYear() + 7}-${new Date(status.get('created_at')).toLocaleString('en-US', { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).substring(5)}`
-            }
-            {status.get('edited_at') && (
-              <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/\d{4}/, new Date(status.get('edited_at')).getFullYear() + 7) })}> *</abbr>
-            )}
-            </a>
-            {edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
+            <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
+              <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
+            </a>{edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
           </div>
         </div>
       </div>
