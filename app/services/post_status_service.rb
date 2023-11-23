@@ -213,6 +213,8 @@ class PostStatusService < BaseService
       application: @options[:application],
       content_type: @options[:content_type] || @account.user&.setting_default_content_type,
       rate_limit: @options[:with_rate_limit],
+      override_timestamps: @options[:override_timestamps],
+      created_at: @options[:created_at]
     }.compact
   end
 
