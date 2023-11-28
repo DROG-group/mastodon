@@ -69,7 +69,7 @@ module Mastodon
     # remove this line setting to 6.1 cache format, and then release another version.
     # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#new-activesupport-cache-serialization-format
     # https://github.com/mastodon/mastodon/pull/24241#discussion_r1162890242
-    config.active_support.cache_format_version = 6.1
+    # config.active_support.cache_format_version = 6.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
