@@ -214,7 +214,8 @@ class PostStatusService < BaseService
       content_type: @options[:content_type] || @account.user&.setting_default_content_type,
       rate_limit: @options[:with_rate_limit],
       override_timestamps: @options[:override_timestamps],
-      created_at: @options[:created_at]
+      created_at: @options[:created_at],
+      in_reply_to_id: @options[:in_reply_to_id]
     }.compact
   end
 
