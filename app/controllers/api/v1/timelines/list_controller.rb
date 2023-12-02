@@ -17,7 +17,7 @@ class Api::V1::Timelines::ListController < Api::BaseController
   private
 
   def set_list
-    @list = List.joins(:accounts).where(accounts: { id: current_account.id }).find(params[:id])
+    @list = List.where(account: current_account).find(params[:id])
   end
 
   def set_statuses
