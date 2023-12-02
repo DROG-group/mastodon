@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ListsController < Api::BaseController
-  before_action -> { doorkeeper_authorize! :read, :'read:lists' }, only: [:index, :show]
+  before_action -> { doorkeeper_authorize! :read, :'read:lists' }, except: [:index, :show]
   before_action -> { doorkeeper_authorize! :write, :'write:lists' }, except: [:index, :show]
 
   before_action :require_user!
@@ -12,7 +12,7 @@ class Api::V1::ListsController < Api::BaseController
   end
 
   def index
-    @lists = List.where(account: current_account).all
+    @lists = List.joins(:accounts).where(accounts: { id: current_account.id }).distinct
     render json: @lists, each_serializer: REST::ListSerializer
   end
 
@@ -38,7 +38,7 @@ class Api::V1::ListsController < Api::BaseController
   private
 
   def set_list
-    @list = List.where(account: current_account).find(params[:id])
+    @list = List.joins(:accounts).where(accounts: { id: current_account.id }).find(params[:id])
   end
 
   def list_params
