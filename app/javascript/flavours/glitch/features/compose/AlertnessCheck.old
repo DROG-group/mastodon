@@ -12,12 +12,11 @@ const AlertnessCheck = ({ trackScore }) => {
   const [timeLeft, setTimeLeft] = useState(30);
   const [gameStarted, setGameStarted] = useState(false);
   const [feedback, setFeedback] = useState('');
-  const [countdown, setCountdown] = useState(600); // 10 minutes in seconds
 
   useEffect(() => {
     if (gameStarted) {
       const wordIndex = Math.floor(Math.random() * colors.length);
-      const styleIndex = wordIndex !== colors.length - 1 ? wordIndex + 1 : 0;
+      const styleIndex = wordIndex !== colors.length - 1 ? wordIndex + 1 : 0;  // Ensure different style.
       setCorrectColorWord(colors[wordIndex]);
       setCorrectColorStyle(colorStyles[styleIndex]);
     }
@@ -39,27 +38,9 @@ const AlertnessCheck = ({ trackScore }) => {
     }
   }, [timeLeft]);
 
-  useEffect(() => {
-    if (!gameStarted) {
-      const countdownIntervalId = setInterval(() => {
-        setCountdown((prevCountdown) => {
-          if (prevCountdown === 1) {
-            startGame();
-            return 600;
-          }
-          return prevCountdown - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(countdownIntervalId);
-    } else {
-      setCountdown(600);
-    }
-  }, [gameStarted]);
-
   const endGame = () => {
     setGameStarted(false);
-    setLastScore(score);
+    setLastScore(score); // Update the last score when game ends
     if (trackScore) {
       trackScore(score);
     }
@@ -79,13 +60,13 @@ const AlertnessCheck = ({ trackScore }) => {
 
     setTimeout(() => {
       setFeedback('');
-    }, 1500);
+    }, 1500); // Clear feedback after 1.5 seconds
   };
 
   const startGame = () => {
     setScore(0);
     setTimeLeft(30);
-    setGameStarted(true);
+    setGameStarted(true); 
   };
 
   return (
@@ -99,8 +80,8 @@ const AlertnessCheck = ({ trackScore }) => {
       justifyContent: 'space-between', 
       alignItems: 'center', 
       background: '#fff',
-      border: '2px solid #c0cdd9',
-      borderRadius: '4px',
+      border: '2px solid #000',
+      borderRadius: '10px',
       margin: 'auto'
     }}>
       {!gameStarted && (
@@ -110,7 +91,7 @@ const AlertnessCheck = ({ trackScore }) => {
             padding: '5px 10px',
             margin: '10px 0',
           }}>
-            Start Game ({Math.floor(countdown / 60)}:{String(countdown % 60).padStart(2, '0')})
+            Start Game
           </button>
           {lastScore !== null && <div style={{ fontSize: '16px' }}>Last score: {lastScore}</div>}
         </>
@@ -136,12 +117,8 @@ const AlertnessCheck = ({ trackScore }) => {
           </div>
           <div style={{ fontSize: '16px', textAlign: 'center' }}>
             {feedback && <div style={{ color: feedback === 'Correct!' ? 'green' : 'red' }}>{feedback}</div>}
-            <div style={{ fontSize: '16px', color: '#333', textAlign: 'center' }}>
-              Score: {score}
-            </div>
-            <div style={{ fontSize: '16px', color: '#333', textAlign: 'center' }}>
-              Time Left: {timeLeft}s
-            </div>
+            <div>Score: {score}</div>
+            <div>Time Left: {timeLeft}s</div>
           </div>
         </>
       )}

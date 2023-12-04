@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import AlertnessCheck from './AlertnessCheck';
-
+import { me } from 'mastodon/initial_state';
 
 import { injectIntl, defineMessages } from 'react-intl';
 
@@ -49,10 +49,17 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Compose extends PureComponent {
 
-    trackScore = (score) => {
-        // Assuming Matomo (_paq) is initialized and accessible globally
-        window._paq && window._paq.push(['trackEvent', 'Alertness Check', 'Score', 'Player score', score]);
-      };
+  trackScore = (score) => {
+    const currentUserID = me; // 'me' is imported from 'mastodon/initial_state'
+  
+    // Track the event with Matomo
+    window._paq?.push([
+      'trackEvent',
+      'Alertness Check',
+      'Score',
+      `User ID: ${currentUserID}, Time: ${new Date().toISOString()}, Score: ${score}`
+    ]);
+  }; 
 
   static propTypes = {
     multiColumn: PropTypes.bool,
