@@ -50,14 +50,13 @@ const mapDispatchToProps = (dispatch) => ({
 class Compose extends PureComponent {
 
   trackScore = (score) => {
-    const currentUserID = me; // 'me' is imported from 'mastodon/initial_state'
-  
-    // Track the event with Matomo
-    window._paq?.push([
+       const currentUserID = me; // 'me' is imported from 'mastodon/initial_state' 
+       // Track the event with Matomo
+     window._paq?.push([
       'trackEvent',
-      'Alertness Check',
-      'Score',
-      `User ID: ${currentUserID}, Time: ${new Date().toISOString()}, Score: ${score}`
+     'Alertness Check',
+     'Score',
+    `User ID: ${currentUserID}, Time: ${new Date().toISOString()}, Score: ${score}`
     ]);
   }; 
 

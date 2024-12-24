@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const AlertnessCheck = ({ trackScore }) => {
-  const colors = ['RED', 'GREEN', 'BLUE', 'YELLOW', 'PURPLE', 'CYAN'];
-  const colorStyles = ['red', 'green', 'blue', 'yellow', 'purple', 'cyan'];
+  const colors = ['RED', 'GREEN', 'BLUE', 'GOLD', 'PURPLE', 'CYAN'];
+  const colorStyles = ['red', 'green', 'blue', 'gold', 'purple', 'cyan'];
 
   const [correctColorWord, setCorrectColorWord] = useState('');
   const [correctColorStyle, setCorrectColorStyle] = useState('');
@@ -17,7 +17,11 @@ const AlertnessCheck = ({ trackScore }) => {
   useEffect(() => {
     if (gameStarted) {
       const wordIndex = Math.floor(Math.random() * colors.length);
-      const styleIndex = wordIndex !== colors.length - 1 ? wordIndex + 1 : 0;
+      let styleIndex;
+      do {
+        styleIndex = Math.floor(Math.random() * colorStyles.length);
+      } while (styleIndex === wordIndex); // Ensure styleIndex is different from wordIndex
+  
       setCorrectColorWord(colors[wordIndex]);
       setCorrectColorStyle(colorStyles[styleIndex]);
     }
@@ -45,7 +49,7 @@ const AlertnessCheck = ({ trackScore }) => {
         setCountdown((prevCountdown) => {
           if (prevCountdown === 1) {
             startGame();
-            return 600;
+            return 3600;
           }
           return prevCountdown - 1;
         });
@@ -53,7 +57,7 @@ const AlertnessCheck = ({ trackScore }) => {
 
       return () => clearInterval(countdownIntervalId);
     } else {
-      setCountdown(600);
+      setCountdown(3600);
     }
   }, [gameStarted]);
 
