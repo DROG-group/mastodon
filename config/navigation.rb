@@ -86,6 +86,16 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :relays, safe_join([material_symbol('captive_portal'), t('admin.relays.title')]), admin_relays_path, highlights_on: %r{/admin/relays}, if: -> { !limited_federation_mode? && current_user.can?(:manage_federation) }
     end
 
+    n.item :gamepatch, safe_join([material_symbol('widgets'), t('admin.gamepatch.title')]), nil, if: -> { current_user.can?(:manage_settings) && !self_destruct } do |s|
+      s.item :gamepatch_dashboard, safe_join([material_symbol('speed'), t('admin.gamepatch.dashboard.title')]), admin_gamepatch_dashboard_path, highlights_on: %r{/admin/gamepatch$}
+      s.item :gamepatch_imports, safe_join([material_symbol('cloud_upload'), t('admin.gamepatch.imports.title')]), admin_gamepatch_imports_path, highlights_on: %r{/admin/gamepatch/imports}
+      s.item :gamepatch_scenarios, safe_join([material_symbol('save'), t('admin.gamepatch.scenarios.title')]), admin_gamepatch_scenarios_path, highlights_on: %r{/admin/gamepatch/scenarios}
+      s.item :gamepatch_api_keys, safe_join([material_symbol('key'), t('admin.gamepatch.api_keys.title')]), admin_gamepatch_api_keys_path, highlights_on: %r{/admin/gamepatch/api_keys}
+      s.item :gamepatch_config, safe_join([material_symbol('tune'), t('admin.gamepatch.config.title')]), admin_gamepatch_config_path, highlights_on: %r{/admin/gamepatch/config}
+      s.item :gamepatch_analytics, safe_join([material_symbol('analytics'), t('admin.gamepatch.analytics.title')]), admin_gamepatch_analytics_index_path, highlights_on: %r{/admin/gamepatch/analytics}
+      s.item :gamepatch_payments, safe_join([material_symbol('payments'), t('admin.gamepatch.payments.title')]), admin_gamepatch_payments_path, highlights_on: %r{/admin/gamepatch/payments}
+    end
+
     n.item :sidekiq, safe_join([material_symbol('diamond'), 'Sidekiq']), sidekiq_path, link_html: { target: 'sidekiq' }, if: -> { current_user.can?(:view_devops) }
     n.item :pghero, safe_join([material_symbol('database'), 'PgHero']), pghero_path, link_html: { target: 'pghero' }, if: -> { current_user.can?(:view_devops) }
     n.item :logout, safe_join([material_symbol('logout'), t('auth.logout')]), destroy_user_session_path, link_html: { 'data-method' => 'delete' }
