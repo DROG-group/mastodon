@@ -94,6 +94,9 @@ export const config: UserConfigFnPromise = async ({ mode, command }) => {
           postcssPresetEnv({
             features: {
               'logical-properties-and-values': false,
+              'cascade-layers': {
+                onRevertLayerKeyword: false,
+              },
             },
           }),
         ],
