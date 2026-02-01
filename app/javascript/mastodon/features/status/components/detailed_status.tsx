@@ -34,6 +34,7 @@ import { Video } from 'mastodon/features/video';
 import { useIdentity } from 'mastodon/identity_context';
 
 import Card from './card';
+import { GamepatchCard } from './gamepatch_card';
 
 interface VideoModalOptions {
   startTime: number;
@@ -156,6 +157,7 @@ export const DetailedStatus: React.FC<{
   }
 
   let media;
+  let gamepatchCard;
   let applicationLink;
   let reblogLink;
   let quotesLink;
@@ -266,6 +268,12 @@ export const DetailedStatus: React.FC<{
         sensitive={status.get('sensitive')}
         card={status.get('card')}
       />
+    );
+  }
+
+  if (properStatus.get('gamepatch_card')) {
+    gamepatchCard = (
+      <GamepatchCard payload={properStatus.get('gamepatch_card')} />
     );
   }
 
@@ -455,6 +463,7 @@ export const DetailedStatus: React.FC<{
             />
 
             {media}
+            {gamepatchCard}
             {hashtagBar}
 
             {status.get('quote') && (

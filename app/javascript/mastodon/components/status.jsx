@@ -19,6 +19,7 @@ import { PictureInPicturePlaceholder } from 'mastodon/components/picture_in_pict
 import { withOptionalRouter, WithOptionalRouterPropTypes } from 'mastodon/utils/react_router';
 
 import Card from '../features/status/components/card';
+import { GamepatchCard } from '../features/status/components/gamepatch_card';
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
@@ -404,7 +405,7 @@ class Status extends ImmutablePureComponent {
       onTranslate: this.handleTranslate,
     };
 
-    let media, statusAvatar, prepend, rebloggedByText;
+    let media, gamepatchCard, statusAvatar, prepend, rebloggedByText;
 
     const connectUp = previousId && previousId === status.get('in_reply_to_id');
     const connectToRoot = rootId && rootId === status.get('in_reply_to_id');
@@ -546,6 +547,12 @@ class Status extends ImmutablePureComponent {
       );
     }
 
+    if (status.get('gamepatch_card')) {
+      gamepatchCard = (
+        <GamepatchCard payload={status.get('gamepatch_card')} />
+      );
+    }
+
     if (account === undefined || account === null) {
       statusAvatar = <Avatar account={status.get('account')} size={avatarSize} />;
     } else {
@@ -613,6 +620,7 @@ class Status extends ImmutablePureComponent {
                 />
 
                 {media}
+                {gamepatchCard}
                 {hashtagBar}
 
                 {children}
