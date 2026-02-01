@@ -16,6 +16,9 @@ def redirect_with_vary(path)
 end
 
 Rails.application.routes.draw do
+  # Gamepatch API
+  mount Gamepatch::Engine, at: '/gamepatch'
+
   root 'home#index'
 
   mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
