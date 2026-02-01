@@ -567,6 +567,13 @@ en:
         instance_media_attachments_measure: stored media attachments
         instance_reports_measure: reports about them
         instance_statuses_measure: stored posts
+        total_cards: Total Cards
+        total_instances: Card Instances
+        total_responses: Card Responses
+        active_bots: Active Bots
+        active_api_keys: Active API Keys
+        schema_distribution: Schema Version Distribution
+        recent_cards: Recent Cards
       delivery:
         all: All
         clear: Clear delivery errors
@@ -1169,6 +1176,13 @@ en:
         type: Type
         prompt: Prompt
         responses: Responses
+        created: Created
+      cards:
+        uid: UID
+        schema_version: Schema Version
+        card_version: Card Version
+        title: Title
+        instances: Instances
         created: Created
       imports:
         title: Imports
