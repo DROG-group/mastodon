@@ -92,7 +92,7 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :gamepatch_scenarios, safe_join([material_symbol('save'), t('admin.gamepatch.scenarios.title')]), admin_gamepatch_scenarios_path, highlights_on: %r{/admin/gamepatch/scenarios}
       s.item :gamepatch_api_keys, safe_join([material_symbol('key'), t('admin.gamepatch.api_keys.title')]), admin_gamepatch_api_keys_path, highlights_on: %r{/admin/gamepatch/api_keys}
       s.item :gamepatch_config, safe_join([material_symbol('tune'), t('admin.gamepatch.config.title')]), admin_gamepatch_config_path, highlights_on: %r{/admin/gamepatch/config}
-      s.item :gamepatch_analytics, safe_join([material_symbol('analytics'), t('admin.gamepatch.analytics.title')]), admin_gamepatch_analytics_index_path, highlights_on: %r{/admin/gamepatch/analytics}
+      s.item :gamepatch_analytics, safe_join([material_symbol('analytics'), t('admin.gamepatch.analytics.title')]), admin_gamepatch_analytics_path, highlights_on: %r{/admin/gamepatch/analytics}
       s.item :gamepatch_payments, safe_join([material_symbol('payments'), t('admin.gamepatch.payments.title')]), admin_gamepatch_payments_path, highlights_on: %r{/admin/gamepatch/payments}
     end
 
