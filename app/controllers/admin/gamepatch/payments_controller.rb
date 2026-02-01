@@ -14,7 +14,7 @@ module Admin
           total_payments: ::Gamepatch::Payment.count,
           successful_payments: ::Gamepatch::Payment.paid.count,
           total_revenue: ::Gamepatch::Payment.paid.sum(:amount),
-          monthly_revenue: ::Gamepatch::Payment.paid.where('paid_at >= ?', 30.days.ago).sum(:amount)
+          monthly_revenue: ::Gamepatch::Payment.paid.where(paid_at: 30.days.ago..).sum(:amount),
         }
 
         @tier_distribution = ::Gamepatch::Subscription.active.group(:tier).count
@@ -115,7 +115,7 @@ module Admin
         subscriptions = ::Gamepatch::Subscription.includes(:account).all
 
         csv = CSV.generate do |csv|
-          csv << %w[id account_username tier status amount currency period_start period_end created_at]
+          csv << %w(id account_username tier status amount currency period_start period_end created_at)
           subscriptions.each do |sub|
             csv << [
               sub.id,
@@ -126,7 +126,7 @@ module Admin
               sub.currency,
               sub.current_period_start&.iso8601,
               sub.current_period_end&.iso8601,
-              sub.created_at.iso8601
+              sub.created_at.iso8601,
             ]
           end
         end
@@ -138,7 +138,7 @@ module Admin
         payments = ::Gamepatch::Payment.includes(:account, :subscription).all
 
         csv = CSV.generate do |csv|
-          csv << %w[id account_username mollie_id status amount currency payment_method paid_at created_at]
+          csv << %w(id account_username mollie_id status amount currency payment_method paid_at created_at)
           payments.each do |payment|
             csv << [
               payment.id,
@@ -149,7 +149,7 @@ module Admin
               payment.currency,
               payment.payment_method,
               payment.paid_at&.iso8601,
-              payment.created_at.iso8601
+              payment.created_at.iso8601,
             ]
           end
         end
@@ -164,7 +164,7 @@ module Admin
                                    .sum(:amount)
 
         csv = CSV.generate do |csv|
-          csv << %w[month revenue currency]
+          csv << %w(month revenue currency)
           data.sort.each do |month, amount|
             csv << [month&.strftime('%Y-%m'), amount, 'EUR']
           end

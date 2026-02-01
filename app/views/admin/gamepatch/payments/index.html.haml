@@ -55,7 +55,7 @@
 %h3= t('admin.gamepatch.payments.tier_distribution')
 
 .simple_form
-  - ::Gamepatch::MollieService::TIERS.each do |tier, config|
+  - Gamepatch::MollieService::TIERS.each do |tier, config|
     .batch-table__row
       .batch-table__row__content
         %span.batch-table__row__content__extra
@@ -93,11 +93,15 @@
           %td
             = link_to subscription.account&.username || 'N/A', admin_account_path(subscription.account_id)
           %td
-            - tier_config = ::Gamepatch::MollieService::TIERS[subscription.tier]
+            - tier_config = Gamepatch::MollieService::TIERS[subscription.tier]
             = tier_config&.dig(:badge)
             = subscription.tier.titleize
           %td
-            %span.indicator-icon{ class: subscription.active? ? 'success' : (subscription.cancelled? ? 'failure' : nil) }
+            %span.indicator-icon{ class: if subscription.active?
+                                           'success'
+                                         else
+                                           (subscription.cancelled? ? 'failure' : nil)
+            end }
             = subscription.status
           %td= number_to_currency(subscription.amount, unit: "\u20AC")
           %td= l(subscription.created_at)
@@ -124,7 +128,11 @@
           %td
             %code= truncate(payment.mollie_payment_id, length: 20)
           %td
-            %span.indicator-icon{ class: payment.paid? ? 'success' : (payment.failed? ? 'failure' : nil) }
+            %span.indicator-icon{ class: if payment.paid?
+                                           'success'
+                                         else
+                                           (payment.failed? ? 'failure' : nil)
+            end }
             = payment.status
           %td= number_to_currency(payment.amount, unit: "\u20AC")
           %td= payment.payment_method || '-'

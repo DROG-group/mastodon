@@ -68,12 +68,12 @@ module Admin
           results = ::Gamepatch::Importer.from_csv(file.path, mode: mode.to_sym)
           success_count = results.count { |r| r[:success] }
           error_count = results.count { |r| !r[:success] }
-          errors = results.select { |r| !r[:success] }.map { |r| { idx: r[:idx], error: r[:error] } }
+          errors = results.reject { |r| r[:success] }.map { |r| { idx: r[:idx], error: r[:error] } }
 
           log.complete!(success_count: success_count, error_count: error_count, errors: errors)
 
           redirect_to admin_gamepatch_imports_path, notice: t('admin.gamepatch.imports.success', success: success_count, errors: error_count)
-        rescue StandardError => e
+        rescue => e
           log.fail!(e)
           redirect_to admin_gamepatch_imports_path, alert: e.message
         end
@@ -83,7 +83,7 @@ module Admin
         url = params[:url]
         mode = params[:mode] || 'fast'
 
-        unless url.present?
+        if url.blank?
           redirect_to admin_gamepatch_imports_path, alert: t('admin.gamepatch.imports.no_url')
           return
         end
@@ -99,12 +99,12 @@ module Admin
           results = ::Gamepatch::Importer.from_sheet_url(url, mode: mode.to_sym)
           success_count = results.count { |r| r[:success] }
           error_count = results.count { |r| !r[:success] }
-          errors = results.select { |r| !r[:success] }.map { |r| { idx: r[:idx], error: r[:error] } }
+          errors = results.reject { |r| r[:success] }.map { |r| { idx: r[:idx], error: r[:error] } }
 
           log.complete!(success_count: success_count, error_count: error_count, errors: errors)
 
           redirect_to admin_gamepatch_imports_path, notice: t('admin.gamepatch.imports.success', success: success_count, errors: error_count)
-        rescue StandardError => e
+        rescue => e
           log.fail!(e)
           redirect_to admin_gamepatch_imports_path, alert: e.message
         end
@@ -119,7 +119,7 @@ module Admin
           return
         end
 
-        unless account_id.present?
+        if account_id.blank?
           redirect_to admin_gamepatch_imports_path, alert: t('admin.gamepatch.imports.no_account')
           return
         end
@@ -146,7 +146,7 @@ module Admin
           log.complete!(success_count: widget_count, error_count: 0)
 
           redirect_to admin_gamepatch_imports_path, notice: t('admin.gamepatch.imports.dialogue_success', count: widget_count)
-        rescue StandardError => e
+        rescue => e
           log.fail!(e)
           redirect_to admin_gamepatch_imports_path, alert: e.message
         end

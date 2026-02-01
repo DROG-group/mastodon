@@ -2,6 +2,17 @@
   = t('admin.gamepatch.analytics.responses_title')
 
 - content_for :heading_actions do
+  - widget_type_options = [
+    [t('admin.gamepatch.analytics.select_type'), ''],
+    ['Slider', 'slider'],
+    ['Stars', 'stars'],
+    ['Quiz', 'quiz'],
+    ['Ranking', 'ranking'],
+    ['Buttons', 'buttons'],
+    ['Dropdown', 'dropdown'],
+    ['Emoji', 'emoji'],
+  ]
+
   = form_tag admin_gamepatch_responses_analytics_index_path, method: :get, class: 'simple_form' do
     .fields-row
       .fields-row__column
@@ -9,16 +20,7 @@
       .fields-row__column
         = date_field_tag :end_date, params[:end_date] || Date.current
       .fields-row__column
-        = select_tag :widget_type, options_for_select([
-          [t('admin.gamepatch.analytics.select_type'), ''],
-          ['Slider', 'slider'],
-          ['Stars', 'stars'],
-          ['Quiz', 'quiz'],
-          ['Ranking', 'ranking'],
-          ['Buttons', 'buttons'],
-          ['Dropdown', 'dropdown'],
-          ['Emoji', 'emoji']
-        ], @widget_type)
+        = select_tag :widget_type, options_for_select(widget_type_options, @widget_type)
       .fields-row__column
         = button_tag t('admin.gamepatch.analytics.view'), type: 'submit', class: 'button'
 
@@ -54,7 +56,7 @@
           .dashboard__item
             .dashboard__quick-access
               %span= t('admin.gamepatch.analytics.range')
-              %strong= "#{agg[:min]} - #{agg[:max]}"
+              %strong #{agg[:min]} - #{agg[:max]}
 
   - when 'stars'
     %h3= t('admin.gamepatch.analytics.star_ratings')
@@ -94,7 +96,7 @@
           .dashboard__item
             .dashboard__quick-access{ class: agg[:accuracy] >= 50 ? 'dashboard__quick-access--yellow' : nil }
               %span= t('admin.gamepatch.analytics.accuracy')
-              %strong= "#{agg[:accuracy]}%"
+              %strong #{agg[:accuracy]}%
 
         - if agg[:choice_distribution].any?
           .table-wrapper
@@ -109,7 +111,7 @@
                   %tr
                     %td= choice[:text]
                     %td= choice[:count]
-                    %td= "#{choice[:percentage]}%"
+                    %td #{choice[:percentage]}%
 
   - when 'ranking'
     %h3= t('admin.gamepatch.analytics.rankings')
@@ -165,4 +167,4 @@
                   %tr
                     %td= choice[:text]
                     %td= choice[:count]
-                    %td= "#{choice[:percentage]}%"
+                    %td #{choice[:percentage]}%

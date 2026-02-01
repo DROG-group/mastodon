@@ -18,7 +18,7 @@
     .fields-group
       .input.check_boxes
         = label_tag nil, t('admin.gamepatch.api_keys.scopes')
-        - ::Gamepatch::ApiKey::SCOPES.each do |scope|
+        - Gamepatch::ApiKey::SCOPES.each do |scope|
           %label.checkbox
             = check_box_tag 'scopes[]', scope
             = scope.humanize

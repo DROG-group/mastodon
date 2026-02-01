@@ -72,12 +72,24 @@
           %th= t('admin.gamepatch.imports.date')
       %tbody
         - @stats[:recent_imports].each do |log|
+          - status_class = if log.status == 'completed'
+              'success'
+            elsif log.status == 'failed'
+              'failure'
+            end
+          - status_icon = if log.status == 'completed'
+              'check'
+            elsif log.status == 'failed'
+              'close'
+            else
+              'pending'
+            end
           %tr
             %td= log.import_type
             %td= truncate(log.source_name, length: 30)
             %td
-              %span.indicator-icon{ class: log.status == 'completed' ? 'success' : (log.status == 'failed' ? 'failure' : nil) }
-                = material_symbol(log.status == 'completed' ? 'check' : (log.status == 'failed' ? 'close' : 'pending'))
+              %span.indicator-icon{ class: status_class }
+                = material_symbol(status_icon)
               = log.status
-            %td= "#{log.success_count}/#{log.total_records}"
+            %td #{log.success_count}/#{log.total_records}
             %td= l(log.created_at)

@@ -35,6 +35,7 @@ test:
     password: <%= (ENV['DB_PASS'] || '').to_json %>
     host: <%= ENV['DB_HOST'] %>
     port: <%= ENV['DB_PORT'] %>
+    min_messages: error
   replica:
     <<: *default
     database: <%= ENV['DB_NAME'] || 'mastodon' %>_test<%= ENV['TEST_ENV_NUMBER'] %>
@@ -43,6 +44,7 @@ test:
     host: <%= ENV['DB_HOST'] %>
     port: <%= ENV['DB_PORT'] %>
     replica: true
+    min_messages: error
 
 production:
   primary:

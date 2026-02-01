@@ -33,11 +33,15 @@
             - else
               %em N/A
           %td
-            - tier_config = ::Gamepatch::MollieService::TIERS[subscription.tier]
+            - tier_config = Gamepatch::MollieService::TIERS[subscription.tier]
             = tier_config&.dig(:badge)
             = subscription.tier.titleize
           %td
-            %span.indicator-icon{ class: subscription.active? ? 'success' : (subscription.cancelled? ? 'failure' : nil) }
+            %span.indicator-icon{ class: if subscription.active?
+                                           'success'
+                                         else
+                                           (subscription.cancelled? ? 'failure' : nil)
+            end }
             = subscription.status
           %td= number_to_currency(subscription.amount, unit: "\u20AC")
           %td

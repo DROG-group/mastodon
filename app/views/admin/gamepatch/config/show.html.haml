@@ -10,13 +10,15 @@
       = text_field_tag :domain, @config['domain'], placeholder: 'localhost:3000'
       %p.hint= t('admin.gamepatch.config.domain_hint')
 
+  - import_mode_options = [
+    [t('admin.gamepatch.imports.mode_fast'), 'fast'],
+    [t('admin.gamepatch.imports.mode_safe'), 'safe'],
+  ]
+
   .fields-group
     .input.select
       = label_tag :default_import_mode, t('admin.gamepatch.config.default_import_mode')
-      = select_tag :default_import_mode, options_for_select([
-        [t('admin.gamepatch.imports.mode_fast'), 'fast'],
-        [t('admin.gamepatch.imports.mode_safe'), 'safe']
-      ], @config['default_import_mode'])
+      = select_tag :default_import_mode, options_for_select(import_mode_options, @config['default_import_mode'])
       %p.hint= t('admin.gamepatch.config.default_import_mode_hint')
 
   %hr.spacer

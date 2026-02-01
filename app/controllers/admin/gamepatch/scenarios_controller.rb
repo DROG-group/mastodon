@@ -14,7 +14,7 @@ module Admin
 
         name = params[:name]
 
-        unless name.present?
+        if name.blank?
           redirect_to admin_gamepatch_scenarios_path, alert: t('admin.gamepatch.scenarios.name_required')
           return
         end
@@ -22,7 +22,7 @@ module Admin
         begin
           ::Gamepatch::Scenario.save(name)
           redirect_to admin_gamepatch_scenarios_path, notice: t('admin.gamepatch.scenarios.saved', name: name)
-        rescue StandardError => e
+        rescue => e
           redirect_to admin_gamepatch_scenarios_path, alert: e.message
         end
       end
@@ -35,7 +35,7 @@ module Admin
         begin
           ::Gamepatch::Scenario.load(name)
           redirect_to admin_gamepatch_scenarios_path, notice: t('admin.gamepatch.scenarios.loaded', name: name)
-        rescue StandardError => e
+        rescue => e
           redirect_to admin_gamepatch_scenarios_path, alert: e.message
         end
       end
@@ -48,7 +48,7 @@ module Admin
         begin
           deleted_count = ::Gamepatch::Scenario.delete(name)
           redirect_to admin_gamepatch_scenarios_path, notice: t('admin.gamepatch.scenarios.deleted', count: deleted_count)
-        rescue StandardError => e
+        rescue => e
           redirect_to admin_gamepatch_scenarios_path, alert: e.message
         end
       end

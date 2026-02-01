@@ -11,7 +11,7 @@ module Admin
           total_responses: ::Gamepatch::WidgetResponse.count,
           total_impressions: ::Gamepatch::WidgetImpression.count,
           active_api_keys: ::Gamepatch::ApiKey.active.count,
-          recent_imports: ::Gamepatch::ImportLog.recent.limit(5)
+          recent_imports: ::Gamepatch::ImportLog.recent.limit(5),
         }
 
         @recent_widgets = ::Gamepatch::Widget.order(created_at: :desc).limit(10)

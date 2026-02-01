@@ -38,7 +38,7 @@ module Admin
 
       def load_config
         result = ActiveRecord::Base.connection.execute(
-          "SELECT key, value FROM gamepatch.config"
+          'SELECT key, value FROM gamepatch.config'
         ).to_a.to_h { |row| [row['key'], row['value']] }
 
         default_config.merge(result)
@@ -48,11 +48,16 @@ module Admin
 
       def save_config(config)
         config.each do |key, value|
+          sql = <<~SQL.squish
+            INSERT INTO gamepatch.config (key, value) VALUES (?, ?)
+            ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value
+          SQL
+
           ActiveRecord::Base.connection.execute(
             ActiveRecord::Base.sanitize_sql_array([
-              "INSERT INTO gamepatch.config (key, value) VALUES (?, ?)
-               ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value",
-              key.to_s, value.to_s
+              sql,
+              key.to_s,
+              value.to_s,
             ])
           )
         end
@@ -67,7 +72,7 @@ module Admin
           'scenario_backup_dir' => Rails.root.join('tmp', 'gamepatch_scenarios').to_s,
           'max_import_records' => '10000',
           'track_impressions' => 'true',
-          'anonymous_responses' => 'false'
+          'anonymous_responses' => 'false',
         }
       end
     end

@@ -13,9 +13,9 @@ module Admin
         authorize :gamepatch, :create?
 
         name = params[:name]
-        scopes = Array(params[:scopes]).reject(&:blank?)
+        scopes = Array(params[:scopes]).compact_blank
 
-        unless name.present?
+        if name.blank?
           redirect_to admin_gamepatch_api_keys_path, alert: t('admin.gamepatch.api_keys.name_required')
           return
         end
@@ -26,7 +26,7 @@ module Admin
         end
 
         begin
-          api_key, raw_token = ::Gamepatch::ApiKey.generate(
+          _api_key, raw_token = ::Gamepatch::ApiKey.generate(
             name: name,
             scopes: scopes,
             created_by: current_account
@@ -34,7 +34,7 @@ module Admin
 
           flash[:new_token] = raw_token
           redirect_to admin_gamepatch_api_keys_path, notice: t('admin.gamepatch.api_keys.created', name: name)
-        rescue StandardError => e
+        rescue => e
           redirect_to admin_gamepatch_api_keys_path, alert: e.message
         end
       end

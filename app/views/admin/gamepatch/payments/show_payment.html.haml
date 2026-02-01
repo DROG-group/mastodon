@@ -41,7 +41,11 @@
     .input
       %label= t('admin.gamepatch.payments.status')
       .value
-        %span.indicator-icon{ class: @payment.paid? ? 'success' : (@payment.failed? ? 'failure' : nil) }
+        %span.indicator-icon{ class: if @payment.paid?
+                                       'success'
+                                     else
+                                       (@payment.failed? ? 'failure' : nil)
+        end }
         = @payment.status.titleize
 
     .input

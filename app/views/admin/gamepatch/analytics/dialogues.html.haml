@@ -34,7 +34,7 @@
         .dashboard__item
           .dashboard__quick-access.dashboard__quick-access--yellow
             %span= t('admin.gamepatch.analytics.completion_rate')
-            %strong= "#{funnel[:overall_completion_rate]}%"
+            %strong #{funnel[:overall_completion_rate]}%
 
       .table-wrapper
         %table.table
@@ -59,9 +59,9 @@
                 %td= step[:widget_type]
                 %td= step[:impressions]
                 %td= step[:responses]
-                %td= "#{step[:completion_rate]}%"
+                %td #{step[:completion_rate]}%
                 %td
-                  - if step[:drop_off] > 0
-                    %span.negative-hint= "-#{step[:drop_off]}%"
+                  - if step[:drop_off].to_i.positive?
+                    %span.negative-hint -#{step[:drop_off]}%
 
       %hr.spacer

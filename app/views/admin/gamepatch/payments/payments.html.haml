@@ -35,7 +35,11 @@
           %td
             %code= truncate(payment.mollie_payment_id, length: 15)
           %td
-            %span.indicator-icon{ class: payment.paid? ? 'success' : (payment.failed? ? 'failure' : nil) }
+            %span.indicator-icon{ class: if payment.paid?
+                                           'success'
+                                         else
+                                           (payment.failed? ? 'failure' : nil)
+            end }
             = payment.status
           %td= number_to_currency(payment.amount, unit: "\u20AC")
           %td= payment.payment_method || '-'

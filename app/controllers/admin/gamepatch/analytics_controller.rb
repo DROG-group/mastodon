@@ -27,7 +27,7 @@ module Admin
             widget: widget,
             impressions: impressions,
             responses: responses,
-            response_rate: impressions > 0 ? (responses.to_f / impressions * 100).round(1) : 0
+            response_rate: impressions.positive? ? (responses.to_f / impressions * 100).round(1) : 0,
           }
         end
       end
@@ -39,9 +39,9 @@ module Admin
                                            .distinct
                                            .pluck(:dialogue_id)
 
-        @dialogue_funnels = @dialogue_ids.map do |dialogue_id|
+        @dialogue_funnels = @dialogue_ids.filter_map do |dialogue_id|
           ::Gamepatch::AnalyticsService.dialogue_funnel(dialogue_id, date_range)
-        end.compact
+        end
       end
 
       def responses
@@ -95,7 +95,7 @@ module Admin
         widgets = ::Gamepatch::Widget.where(created_at: date_range).includes(:responses)
 
         csv = CSV.generate do |csv|
-          csv << %w[uid type prompt options_count responses_count created_at]
+          csv << %w(uid type prompt options_count responses_count created_at)
           widgets.each do |w|
             csv << [w.uid, w.widget_type, w.prompt, w.options.size, w.responses_count, w.created_at.iso8601]
           end
@@ -108,7 +108,7 @@ module Admin
             prompt: w.prompt,
             options: w.options,
             responses_count: w.responses_count,
-            created_at: w.created_at.iso8601
+            created_at: w.created_at.iso8601,
           }
         end.to_json
 
@@ -120,7 +120,7 @@ module Admin
                                                .includes(:widget, :account)
 
         csv = CSV.generate do |csv|
-          csv << %w[widget_uid widget_type choice_text account_username created_at]
+          csv << %w(widget_uid widget_type choice_text account_username created_at)
           responses.each do |r|
             csv << [r.widget.uid, r.widget.widget_type, r.choice_text, r.account&.username, r.created_at.iso8601]
           end
@@ -133,7 +133,7 @@ module Admin
             choices: r.choices,
             choice_text: r.choice_text,
             account_username: r.account&.username,
-            created_at: r.created_at.iso8601
+            created_at: r.created_at.iso8601,
           }
         end.to_json
 
@@ -145,7 +145,7 @@ module Admin
                                                    .includes(:widget, :account)
 
         csv = CSV.generate do |csv|
-          csv << %w[widget_uid account_username session_id referrer created_at]
+          csv << %w(widget_uid account_username session_id referrer created_at)
           impressions.each do |i|
             csv << [i.widget.uid, i.account&.username, i.session_id, i.referrer, i.created_at.iso8601]
           end
@@ -157,7 +157,7 @@ module Admin
             account_username: i.account&.username,
             session_id: i.session_id,
             referrer: i.referrer,
-            created_at: i.created_at.iso8601
+            created_at: i.created_at.iso8601,
           }
         end.to_json
 

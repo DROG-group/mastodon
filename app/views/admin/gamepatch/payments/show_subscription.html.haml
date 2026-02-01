@@ -28,14 +28,18 @@
     .input
       %label= t('admin.gamepatch.payments.tier')
       .value
-        - tier_config = ::Gamepatch::MollieService::TIERS[@subscription.tier]
+        - tier_config = Gamepatch::MollieService::TIERS[@subscription.tier]
         = tier_config&.dig(:badge)
         = tier_config&.dig(:name) || @subscription.tier.titleize
 
     .input
       %label= t('admin.gamepatch.payments.status')
       .value
-        %span.indicator-icon{ class: @subscription.active? ? 'success' : (@subscription.cancelled? ? 'failure' : nil) }
+        %span.indicator-icon{ class: if @subscription.active?
+                                       'success'
+                                     else
+                                       (@subscription.cancelled? ? 'failure' : nil)
+        end }
         = @subscription.status.titleize
 
     .input
@@ -76,9 +80,9 @@
 %h3= t('admin.gamepatch.payments.tier_features')
 
 %ul
-  - tier_config = ::Gamepatch::MollieService::TIERS[@subscription.tier]
+  - tier_config = Gamepatch::MollieService::TIERS[@subscription.tier]
   - (tier_config&.dig(:features) || []).each do |feature|
-    %li= feature.titleize.gsub('_', ' ')
+    %li= feature.titleize.tr('_', ' ')
 
 %hr.spacer
 
@@ -100,7 +104,11 @@
           %td
             %code= truncate(payment.mollie_payment_id, length: 20)
           %td
-            %span.indicator-icon{ class: payment.paid? ? 'success' : (payment.failed? ? 'failure' : nil) }
+            %span.indicator-icon{ class: if payment.paid?
+                                           'success'
+                                         else
+                                           (payment.failed? ? 'failure' : nil)
+            end }
             = payment.status
           %td= number_to_currency(payment.amount, unit: "\u20AC")
           %td= payment.payment_method || '-'
