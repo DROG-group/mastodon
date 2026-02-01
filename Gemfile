@@ -236,4 +236,4 @@ gem 'mail', '~> 2.8'
 gem 'vite_rails', '~> 3.0.19'
 
 # Gamepatch - Bulk import for simulations
-gem 'gamepatch', path: '/Users/ynse/projects/tactcheck'
+gem 'gamepatch', path: 'gamepatch'
