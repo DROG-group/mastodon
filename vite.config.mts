@@ -23,6 +23,7 @@ import { MastodonEmojiCompressed } from './config/vite/plugin-emoji-compressed';
 import { GlitchThemes as MastodonThemes } from './config/vite/plugin-glitch-themes';
 import { MastodonNameLookup } from './config/vite/plugin-name-lookup';
 import { MastodonAssetsManifest } from './config/vite/plugin-assets-manifest';
+import { TactcheckOverrides } from './config/vite/plugin-tactcheck-overrides';
 
 const jsRoot = path.resolve(__dirname, 'app/javascript');
 
@@ -177,6 +178,7 @@ export const config: UserConfigFnPromise = async ({ mode, command }) => {
           plugins: ['formatjs', 'transform-react-remove-prop-types'],
         },
       }),
+      TactcheckOverrides(),
       MastodonThemes(),
       MastodonAssetsManifest(),
       MastodonServiceWorkerLocales(),

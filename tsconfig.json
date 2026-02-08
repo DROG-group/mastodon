@@ -24,6 +24,8 @@
       "locales": ["app/javascript/locales"],
       "flavours/glitch": ["app/javascript/flavours/glitch"],
       "flavours/glitch/*": ["app/javascript/flavours/glitch/*"],
+      "flavours/tactcheck": ["app/javascript/flavours/tactcheck"],
+      "flavours/tactcheck/*": ["app/javascript/flavours/tactcheck/*"],
       "images/*": ["app/javascript/images/*"],
       "styles/*": ["app/javascript/styles/*"]
     },

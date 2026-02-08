@@ -1,0 +1,5 @@
+pack_directory: app/javascript/flavours/tactcheck/entrypoints
+
+locales: ../glitch/locales
+
+screenshot: flavours/glitch/images/glitch-preview.png

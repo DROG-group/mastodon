@@ -1,0 +1,117 @@
+:root {
+  --gp-colors-primary: #6364ff;
+  --gp-colors-text: #fff;
+  --gp-colors-background: #313543;
+  --gp-colors-border: #4a5068;
+  --gp-radius: 8px;
+  --gp-font: inherit;
+  --gp-spacing: 8px;
+  --gp-typography-size: 14px;
+  --gp-typography-weight: 400;
+  --gp-typography-line-height: 1.4;
+  --gp-buttons-radius: 6px;
+  --gp-buttons-padding: 8px 12px;
+}
+
+gamepatch-card {
+  display: block;
+  font-family: var(--gp-font);
+  color: var(--gp-colors-text);
+}
+
+gamepatch-card .gp-card {
+  background: var(--gp-colors-background);
+  border: 1px solid var(--gp-colors-border);
+  border-radius: var(--gp-radius);
+  padding: calc(var(--gp-spacing) * 2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 15%);
+  font-size: var(--gp-typography-size);
+  font-weight: var(--gp-typography-weight);
+  line-height: var(--gp-typography-line-height);
+}
+
+gamepatch-card .gp-card-text {
+  margin-bottom: var(--gp-spacing);
+}
+
+gamepatch-card .gp-card-container {
+  margin-bottom: var(--gp-spacing);
+}
+
+gamepatch-card .gp-card-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gp-spacing);
+  margin-bottom: var(--gp-spacing);
+}
+
+gamepatch-card .gp-card-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+gamepatch-card .gp-card-container > :last-child,
+gamepatch-card .gp-card-column > :last-child {
+  margin-bottom: 0;
+}
+
+gamepatch-card .gp-card-image {
+  width: 100%;
+  border-radius: calc(var(--gp-radius) - 2px);
+  margin-bottom: var(--gp-spacing);
+}
+
+gamepatch-card .gp-card-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: calc(var(--gp-radius) - 2px);
+  border: 1px solid var(--gp-colors-border);
+  background: #fff;
+  color: #222;
+  margin-bottom: var(--gp-spacing);
+}
+
+gamepatch-card .gp-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gp-spacing);
+}
+
+gamepatch-card .gp-card-btn {
+  background: var(--gp-colors-primary);
+  color: var(--gp-colors-text);
+  border: none;
+  border-radius: var(--gp-buttons-radius);
+  padding: var(--gp-buttons-padding);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+gamepatch-card .gp-card-btn:hover {
+  opacity: 0.9;
+}
+
+gamepatch-card .gp-card-thanks {
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  background: var(--gp-colors-background);
+  border: 1px solid var(--gp-colors-border);
+  border-radius: var(--gp-radius);
+}
+
+gamepatch-card .gp-card-error {
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  background: #3f1f1f;
+  border: 1px solid #7b2b2b;
+  border-radius: var(--gp-radius);
+  color: #ffd7d7;
+}
+
+.status__gamepatch-card {
+  margin-top: 8px;
+}

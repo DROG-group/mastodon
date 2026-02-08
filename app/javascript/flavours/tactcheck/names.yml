@@ -1,0 +1,7 @@
+en:
+  flavours:
+    tactcheck: Tactcheck
+    tactcheck_description: Glitch edition with interactive Gamepatch cards
+  skins:
+    tactcheck:
+      default: Default
