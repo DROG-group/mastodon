@@ -235,5 +235,6 @@ gem 'mail', '~> 2.8'
 
 gem 'vite_rails', '~> 3.0.19'
 
-# Gamepatch - Bulk import for simulations
-gem 'gamepatch', path: 'gamepatch'
+# Gamepatch - Bulk import for simulations (optional local path dependency)
+gamepatch_path = File.expand_path('gamepatch', __dir__)
+gem 'gamepatch', path: gamepatch_path if File.directory?(gamepatch_path)
