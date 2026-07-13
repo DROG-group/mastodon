@@ -1,5 +1,7 @@
 exclude:
   - 'vendor/**/*'
+  # Vendored first-party engine — linted in its own repo (DROG-group/tactcheck).
+  - 'gamepatch/**/*'
 
 require:
   - ./lib/linter/haml_middle_dot.rb
