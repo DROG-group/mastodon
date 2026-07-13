@@ -6,6 +6,12 @@ AllCops:
     - Vagrantfile
     - config/initializers/json_ld*
     - lib/mastodon/migration_helpers.rb
+    # Vendored first-party engine — linted in its own repo (DROG-group/tactcheck),
+    # not with the host app's Mastodon-tuned cops.
+    - gamepatch/**/*
+    # Engine migration copies (Rails `.gamepatch.rb` install artifacts); source
+    # of truth is the engine.
+    - db/migrate/*.gamepatch.rb
   ExtraDetails: true
   NewCops: enable
   TargetRubyVersion: 3.2 # Oldest supported ruby version
