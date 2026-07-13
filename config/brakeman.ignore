@@ -1,0 +1,269 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 25,
+      "fingerprint": "0d749244dd6f5baa7a9254a4cf69e24c771e0d67b8a5189ba5c0cb56b80cb860",
+      "check_name": "Deserialize",
+      "message": "Use of `Marshal.load` may be dangerous",
+      "file": "gamepatch/app/services/gamepatch/card_game_rules/base.rb",
+      "line": 88,
+      "link": "https://brakemanscanner.org/docs/warning_types/unsafe_deserialization",
+      "code": "Marshal.load(Marshal.dump(obj))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::CardGameRules::Base",
+        "method": "deep_dup"
+      },
+      "user_input": null,
+      "confidence": "Weak",
+      "cwe_id": [
+        502
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "2fc55aa47ab9f762d217a3e3e2ea2a77bf11dabc2e2983840338304dddcff7d6",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "gamepatch/app/controllers/gamepatch/assets_controller.rb",
+      "line": 34,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.read(File.expand_path(\"../../assets/#{((\"js\" or \"css\") == \"css\") ? (\"stylesheets\") : (\"javascripts\")}/gamepatch/#{params[:filename].gsub(/[^a-zA-Z0-9_.-]/, \"\")}\", __dir__))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::AssetsController",
+        "method": "show"
+      },
+      "user_input": "params[:filename].gsub(/[^a-zA-Z0-9_.-]/, \"\")",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "45f2df2b315835d3935a675a7e3cdc16a5581932bcb0698fbb95fa3ad76eaba3",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "gamepatch/app/controllers/gamepatch/assets_controller.rb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.read(Rails.root.join(\"gamepatch\", \"app\", \"assets\", (((\"js\" or \"css\") == \"css\") ? (\"stylesheets\") : (\"javascripts\")), \"gamepatch\", params[:filename].gsub(/[^a-zA-Z0-9_.-]/, \"\")))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::AssetsController",
+        "method": "show"
+      },
+      "user_input": "params[:filename].gsub(/[^a-zA-Z0-9_.-]/, \"\")",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "4f71a129911d983cf3ae4eb6d2cc5874f44467b56a95e796a5f61814d6e0d0ae",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "gamepatch/app/services/gamepatch/scenario_snapshot/exporter.rb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"pg_dump #{ScenarioSnapshot.db_connection_args} #{TableSet.all.map do\n \"-t #{t}\"\n end.join(\" \")} --data-only --no-owner --disable-triggers > #{ScenarioSnapshot.backup_dir.join(\"#{ScenarioSnapshot.sanitize_name(name)}_#{Time.current.strftime(\"%Y%m%d_%H%M%S\")}.sql\")} 2> #{\"#{ScenarioSnapshot.backup_dir.join(\"#{ScenarioSnapshot.sanitize_name(name)}_#{Time.current.strftime(\"%Y%m%d_%H%M%S\")}.sql\")}.stderr\"}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::ScenarioSnapshot::Exporter",
+        "method": "call"
+      },
+      "user_input": "ScenarioSnapshot.db_connection_args",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "5de40a5fa2ccae6949112332590ab1632c3688a23402558caaf612ca89c24187",
+      "check_name": "MassAssignment",
+      "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
+      "file": "gamepatch/app/controllers/gamepatch/admin/locales_controller.rb",
+      "line": 69,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.fetch(:translations, {}).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::Admin::LocalesController",
+        "method": "update"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "7bf961a26ce1ec1f9675cae343888c4bb58f068b99ea5208d2d2fb29b02173c9",
+      "check_name": "SendFile",
+      "message": "Parameter value used in file name",
+      "file": "gamepatch/app/controllers/gamepatch/media_controller.rb",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(Gamepatch::Engine.root.join(\"storage\", \"media\", params[:path]), :type => ((:BRAKEMAN_SAFE_LITERAL or \"application/octet-stream\")), :disposition => :inline)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::MediaController",
+        "method": "show"
+      },
+      "user_input": "params[:path]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "8783d4903d0c684d15a8187c021dfff801f602507c6dc2b5c68c4d762b2c189e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "gamepatch/app/services/gamepatch/scenario_snapshot/table_set.rb",
+      "line": 48,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::ScenarioSnapshot::TableSet",
+        "method": "truncate"
+      },
+      "user_input": "table",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "ba33a288a1a1999fc6e911e7b755130d001c80c9a95213bf47b0f6f7d13085ef",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "gamepatch/app/controllers/gamepatch/admin/locales_controller.rb",
+      "line": 92,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.delete(locales_dir.join(\"#{params[:id].to_s.downcase}.yml\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::Admin::LocalesController",
+        "method": "destroy"
+      },
+      "user_input": "params[:id].to_s.downcase",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    },
+    {
+      "warning_type": "Path Traversal",
+      "warning_code": 125,
+      "fingerprint": "bc62db5f86683fa9bc6b7348d3a7df0c39ee1e456a6762f4453f845873797678",
+      "check_name": "Pathname",
+      "message": "Absolute paths in `Pathname#join` cause the entire path to be relative to the absolute path, ignoring any prior values",
+      "file": "gamepatch/app/controllers/gamepatch/assets_controller.rb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/path_traversal/",
+      "code": "Rails.root.join(\"gamepatch\", \"app\", \"assets\", (((\"js\" or \"css\") == \"css\") ? (\"stylesheets\") : (\"javascripts\")), \"gamepatch\", params[:filename].gsub(/[^a-zA-Z0-9_.-]/, \"\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Gamepatch::AssetsController",
+        "method": "show"
+      },
+      "user_input": "params[:filename].gsub(/[^a-zA-Z0-9_.-]/, \"\")",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "Reviewed 2026-07-13: params[:filename] is sanitized with gsub(/[^a-zA-Z0-9_.-]/, \"\") before Pathname#join, which strips path separators so traversal / absolute-path injection is not constructible. False positive."
+    },
+    {
+      "warning_type": "Format Validation",
+      "warning_code": 30,
+      "fingerprint": "e72cc3c0c8ef246b4e3d3ce782620abc76e41ffbd0983cb41d29829f14603da4",
+      "check_name": "ValidationRegex",
+      "message": "Insufficient validation for `url` using `/\\Ahttps?:\\/\\//`. Use `\\A` and `\\z` as anchors",
+      "file": "gamepatch/app/models/gamepatch/webhook_endpoint.rb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/format_validation/",
+      "code": null,
+      "render_path": null,
+      "location": {
+        "type": "model",
+        "model": "Gamepatch::WebhookEndpoint"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        777
+      ],
+      "note": "Reviewed 2026-07-13: low severity. URL validation regex has a \\A anchor but no \\z anchor, allowing trailing newline content. Tracked for a real fix in the engine repo (DROG-group/tactcheck); ignored here so the host lint check is not gated on an engine-owned code change."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "f3e39456f07f595a2569345a3a95de7c3d5c2a017d58f917a2281759b54227b6",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped parameter value",
+      "file": "gamepatch/app/views/gamepatch/cards/show.html.haml",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Cards::ServerRenderer.render(CardDefinition.find_by_uid!(params[:uid]), :host_config => Cards::HostConfigResolver.resolve(:bot => resolve_bot, :card_definition => CardDefinition.find_by_uid!(params[:uid])), :mode => :full)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Gamepatch::CardsController",
+          "method": "render_card",
+          "line": 48,
+          "file": "gamepatch/app/controllers/gamepatch/cards_controller.rb",
+          "rendered": {
+            "name": "gamepatch/cards/show",
+            "file": "gamepatch/app/views/gamepatch/cards/show.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "gamepatch/cards/show"
+      },
+      "user_input": "params[:uid]",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Reviewed 2026-07-13: known first-party gamepatch engine finding, accepted. Brakeman still scans the engine via this ignore list, so any new (non-fingerprinted) finding continues to fail CI."
+    }
+  ],
+  "updated": "2026-07-13 12:00:00 +0200",
+  "brakeman_version": "7.1.2"
+}
