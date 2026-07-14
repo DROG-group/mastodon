@@ -39,7 +39,7 @@ RSpec.describe 'Log in' do
   end
 
   def failure_message(message)
-    keys = User.authentication_keys.map { |key| User.human_attribute_name(key) }
+    keys = User.authentication_keys.map { |key| User.human_attribute_name(key).downcase_first }
     I18n.t("devise.failure.#{message}", authentication_keys: keys.join('support.array.words_connector'))
   end
 end
