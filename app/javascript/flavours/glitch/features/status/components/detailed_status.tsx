@@ -36,7 +36,7 @@ import { useIdentity } from 'flavours/glitch/identity_context';
 import { useAppSelector } from 'flavours/glitch/store';
 
 import Card from './card';
-import { GamepatchCard } from 'mastodon/features/status/components/gamepatch_card';
+import { GamepatchCard } from './gamepatch_card';
 
 interface VideoModalOptions {
   startTime: number;

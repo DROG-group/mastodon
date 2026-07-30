@@ -2,6 +2,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { Link } from 'react-router-dom';
 
+// Research instrument: listens for cohort-scoped Stroop fires and
+// mounts a fixed-position overlay over the active scenario card.
+import { GamepatchResearchListener } from 'gamepatch-research-listener';
+// ADR 0007: UISlot plugin system. The colophon footer hosts the
+// 'footer-colophon' slot — engine-registered widgets mount here.
+import { GamepatchSlot } from 'gamepatch-widget-slot';
+import 'gamepatch-widget-styles';
+
 import {
   domain,
   version,
@@ -10,14 +18,6 @@ import {
   profile_directory as canProfileDirectory,
   termsOfServiceEnabled,
 } from 'flavours/glitch/initial_state';
-
-// ADR 0007: UISlot plugin system. The colophon footer hosts the
-// 'footer-colophon' slot — engine-registered widgets mount here.
-import { GamepatchSlot } from 'gamepatch-widget-slot';
-import 'gamepatch-widget-styles';
-// Research instrument: listens for cohort-scoped Stroop fires and
-// mounts a fixed-position overlay over the active scenario card.
-import { GamepatchResearchListener } from 'gamepatch-research-listener';
 
 const DividingCircle: React.FC = () => <span aria-hidden>{' · '}</span>;
 
