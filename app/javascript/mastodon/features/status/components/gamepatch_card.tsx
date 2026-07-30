@@ -3,14 +3,16 @@ import { useMemo } from 'react';
 import type { Map as ImmutableMap } from 'immutable';
 
 import { ensureGamepatchCard } from 'gamepatch-card-runtime';
-ensureGamepatchCard();
 import 'gamepatch-card-styles';
+
+// Register <gamepatch-card> custom element (prevents tree-shaking)
+ensureGamepatchCard();
 
 type Payload = ImmutableMap<string, unknown>;
 
-type Props = {
-  payload: Payload;
-};
+interface Props {
+  payload?: Payload;
+}
 
 const toPlain = (value: unknown) => {
   if (value && typeof (value as { toJS?: () => unknown }).toJS === 'function') {
@@ -30,31 +32,40 @@ const safeStringify = (value: unknown): string | undefined => {
 };
 
 export const GamepatchCard: React.FC<Props> = ({ payload }) => {
+  // Hooks run before the early returns below: a status can gain or lose its
+  // gamepatch card between renders, and calling these conditionally would
+  // change the hook order when it does.
+  const definitionJson = useMemo(
+    () => safeStringify(payload?.get('definition')),
+    [payload],
+  );
+  const hostConfigJson = useMemo(
+    () => safeStringify(payload?.get('host_config')),
+    [payload],
+  );
+  const contextJson = useMemo(
+    () => safeStringify(payload?.get('context')),
+    [payload],
+  );
+  const stateJson = useMemo(
+    () => safeStringify(payload?.get('state')),
+    [payload],
+  );
+  const dataJson = useMemo(
+    () => safeStringify(payload?.get('data')),
+    [payload],
+  );
+
   if (!payload) return null;
 
   const uid = payload.get('uid') as string | undefined;
   if (!uid) return null;
 
   const api = `/gamepatch/api/cards/${uid}`;
-  const cardInstanceId = payload.get('card_instance_id');
-
-  const definitionJson = useMemo(
-    () => safeStringify(payload.get('definition')),
-    [payload],
-  );
-  const hostConfigJson = useMemo(
-    () => safeStringify(payload.get('host_config')),
-    [payload],
-  );
-  const contextJson = useMemo(
-    () => safeStringify(payload.get('context')),
-    [payload],
-  );
-  const stateJson = useMemo(
-    () => safeStringify(payload.get('state')),
-    [payload],
-  );
-  const dataJson = useMemo(() => safeStringify(payload.get('data')), [payload]);
+  const cardInstanceId = payload.get('card_instance_id') as
+    | string
+    | number
+    | undefined;
 
   return (
     <gamepatch-card

@@ -10,6 +10,7 @@
 // version: 4
 
 import { NimbleEmojiIndex } from 'emoji-mart';
+
 import { uncompress as emojiMartUncompress } from 'emoji-mart/dist/utils/data';
 
 import data from './emoji_data.json';

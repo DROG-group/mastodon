@@ -284,7 +284,11 @@ export default tseslint.config([
       'import/no-unresolved': [
         'error',
         {
-          ignore: ['vite/modulepreload-polyfill', '^virtual:.+'],
+          // `gamepatch-*` are vite.config.mts aliases pointing into the
+          // private `gamepatch` submodule, which the JavaScript CI jobs do not
+          // check out. Types come from app/javascript/types/gamepatch-modules.d.ts;
+          // the resolver has no files to find.
+          ignore: ['vite/modulepreload-polyfill', '^virtual:.+', '^gamepatch-'],
         },
       ],
 
