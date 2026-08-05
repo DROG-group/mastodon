@@ -2,6 +2,7 @@ import path from 'node:path';
 import { readdir } from 'node:fs/promises';
 
 import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin';
+import babel from '@rolldown/plugin-babel';
 import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import postcssPresetEnv from 'postcss-preset-env';
@@ -203,11 +204,10 @@ export const config: UserConfigFnPromise = async ({ mode, command }) => {
     },
     plugins: [
       tsconfigPaths({ projects: [path.resolve(__dirname, 'tsconfig.json')] }),
-      react({
-        babel: {
-          plugins: ['formatjs', 'transform-react-remove-prop-types'],
-        },
+      babel({
+        plugins: ['formatjs', 'transform-react-remove-prop-types'],
       }),
+      react(),
       MastodonThemes(),
       MastodonAssetsManifest(),
       MastodonServiceWorkerLocales(),

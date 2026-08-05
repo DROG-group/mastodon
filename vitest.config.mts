@@ -21,13 +21,13 @@ const storybookTests: TestProjectInlineConfiguration = {
   ],
   test: {
     name: 'storybook',
+    setupFiles: [resolve(__dirname, '.storybook/vitest.setup.ts')],
     browser: {
       enabled: true,
       headless: true,
       provider: playwright(),
       instances: [{ browser: 'chromium' }],
     },
-    setupFiles: [resolve(__dirname, '.storybook/vitest.setup.ts')],
   },
 };
 
