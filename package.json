@@ -40,6 +40,7 @@
   },
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.29.7",
     "@csstools/stylelint-formatter-github": "^2.0.0",
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/sortable": "^10.0.0",
@@ -50,6 +51,7 @@
     "@optimize-lodash/rollup-plugin": "^6.0.0",
     "@react-spring/web": "^9.7.5",
     "@reduxjs/toolkit": "^2.0.1",
+    "@rolldown/plugin-babel": "^0.2.3",
     "@use-gesture/react": "^10.3.1",
     "@vitejs/plugin-legacy": "^8.2.2",
     "@vitejs/plugin-react": "^6.0.5",
@@ -110,6 +112,7 @@
     "redux-immutable": "^4.0.0",
     "regenerator-runtime": "^0.14.0",
     "requestidlecallback": "^0.3.0",
+    "rolldown": "^1.2.3",
     "rollup-plugin-gzip": "^4.1.1",
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.62.1",
@@ -134,10 +137,8 @@
     "workbox-window": "^7.4.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.7",
     "@eslint/js": "^9.23.0",
     "@formatjs/cli": "^6.1.1",
-    "@rolldown/plugin-babel": "^0.2.3",
     "@storybook/addon-a11y": "10.5.6",
     "@storybook/addon-docs": "10.5.6",
     "@storybook/addon-vitest": "10.5.6",
@@ -191,7 +192,6 @@
     "postcss": "^8.5.25",
     "prettier": "^3.3.3",
     "react-test-renderer": "^18.2.0",
-    "rolldown": "^1.2.3",
     "rollup": "^4.62.4",
     "storybook": "10.5.6",
     "stylelint": "^17.0.0",
