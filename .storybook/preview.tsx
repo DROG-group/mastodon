@@ -11,13 +11,13 @@ import type { Preview } from '@storybook/react-vite';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { action } from 'storybook/actions';
 
+import { reducerWithInitialState } from '@/flavours/glitch/reducers';
 import {
   importCustomEmojiData,
   importLegacyShortcodes,
   importEmojiData,
 } from '@/mastodon/features/emoji/loader';
 import type { LocaleData } from '@/mastodon/locales';
-import { reducerWithInitialState } from '@/mastodon/reducers';
 import { defaultMiddleware } from '@/mastodon/store/store';
 import { mockHandlers, unhandledRequestHandler } from '@/testing/api';
 
@@ -170,10 +170,15 @@ const preview: Preview = {
     ),
   ],
   loaders: [
-    mswLoader,
-    importCustomEmojiData,
-    importLegacyShortcodes,
-    ({ globals: { locale } }) => importEmojiData(locale as string),
+    async (context) => {
+      // Storybook runs loaders concurrently. Wait for MSW before loading data
+      // through fetch, otherwise the first request can hit the unhandled
+      // network before the worker is ready.
+      await mswLoader(context);
+      await importCustomEmojiData();
+      await importLegacyShortcodes();
+      await importEmojiData(context.globals.locale as string);
+    },
   ],
   parameters: {
     layout: 'centered',

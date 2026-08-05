@@ -73,7 +73,7 @@ export const defaultMediaVisibility = (status, settings) => {
     status = status.get('reblog');
   }
 
-  if (settings.getIn(['media', 'reveal_behind_cw']) && !!status.get('spoiler_text')) {
+  if (settings.getIn(['media', 'reveal_behind_cw']) && !!status.get('spoiler_text', '')) {
     return true;
   }
 
@@ -304,7 +304,7 @@ class Status extends ImmutablePureComponent {
   handleExpandedToggle = () => {
     if (this.props.settings.getIn(['content_warnings', 'shared_state'])) {
       this.props.onToggleHidden(this.props.status);
-    } else if (this.props.status.get('spoiler_text')) {
+    } else if (this.props.status.get('spoiler_text', '')) {
       this.setExpansion(!this.state.isExpanded);
     }
   };
@@ -483,7 +483,7 @@ class Status extends ImmutablePureComponent {
     }
 
     const isExpanded = settings.getIn(['content_warnings', 'shared_state']) ? !status.get('hidden') : this.state.isExpanded;
-    const expanded = isExpanded || status.get('spoiler_text').length === 0;
+    const expanded = isExpanded || status.get('spoiler_text', '').length === 0;
 
     const handlers = {
       reply: this.handleHotkeyReply,
@@ -512,7 +512,7 @@ class Status extends ImmutablePureComponent {
         <Hotkeys handlers={handlers} focusable={!unfocusable}>
           <div ref={this.handleRef} className='status focusable' tabIndex={unfocusable ? null : 0}>
             <span>{status.getIn(['account', 'display_name']) || status.getIn(['account', 'username'])}</span>
-            {status.get('spoiler_text').length > 0 && (<span>{status.get('spoiler_text')}</span>)}
+            {status.get('spoiler_text', '').length > 0 && (<span>{status.get('spoiler_text', '')}</span>)}
             {expanded && <span>{status.get('content')}</span>}
           </div>
         </Hotkeys>
